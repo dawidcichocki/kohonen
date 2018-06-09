@@ -70,12 +70,13 @@ class kohonen(object):
         for ivector in input_vector:
             x, y = self.winner(ivector)
             self.neurons += eta * self.n_matrix(x, y, r)[:, :, np.newaxis] * (self.neurons - ivector)
+       self.decay()
         
     #todo: exp time decay
-    def decay(self, eta, r):
-        self.eta -= eta/300
-        self.r -= r/20
-      
+    def decay(self):
+        self.eta -= self.eta/300
+        self.r -= self.r/20
+        
     def reference_neurons(self, positive, negative):
         return self.winner(positive), self.winner(negative)
     
